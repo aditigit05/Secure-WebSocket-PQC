@@ -1,0 +1,13 @@
+Please install all the libraries that are present in requirements.txt
+by pip install -r requirements.txt
+
+double check each module installed or not 
+
+FastAPI framwork is stablish succesfully 
+to run it 
+    be persent in the virtual environment of backend 
+    then run or terminal
+        python -m uvicorn app.main:app
+    to exit
+        ctlr + c
+
