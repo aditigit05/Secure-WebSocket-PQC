@@ -11,3 +11,5 @@ to run it
     to exit
         ctlr + c
 
+check the email otp demo by running test_email.py
+
