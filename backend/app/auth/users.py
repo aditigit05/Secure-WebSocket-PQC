@@ -1,4 +1,5 @@
 import uuid
+import time 
 
 user_store = {}
 def get_or_create_user(email:str) -> dict:
@@ -8,7 +9,7 @@ def get_or_create_user(email:str) -> dict:
     user = {
         "user_id": str(uuid.uuid4()),
         "email": email,
-        "created_at": None,
+        "created_at": int(time.time()),
     }
     user_store[email] = user
     
