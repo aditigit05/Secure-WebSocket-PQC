@@ -1,0 +1,4 @@
+Please install all the libreries that are present in requirements.txt
+by pip install -r requirements.txt
+
+double check each module installed or not 
