@@ -1,0 +1,16 @@
+for console to establish websocket connection
+
+const token = "Session_token";
+
+const ws = new WebSocket(
+  `ws://127.0.0.1:8000/ws/chat?token=${token}`
+);
+
+ws.onopen = () => console.log("WebSocket connected");
+ws.onmessage = (e) => console.log("Server says:", e.data);
+ws.onclose = () => console.log("WebSocket closed");
+ws.onerror = (e) => console.error("WebSocket error", e);
+
+
+
+ws.send("hello")
