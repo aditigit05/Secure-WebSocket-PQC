@@ -15,6 +15,8 @@ def send_otp_email(to_email: str, otp: str):
     msg = EmailMessage()
     msg["Subject"] = "Your Secure Chat OTP"
     msg["From"] = SMTP_EMAIL
+    msg["To"] = to_email
+    
     msg.set_content(
         f"""
 your One-Time Password (OTP) is:
@@ -26,17 +28,17 @@ Do not share it with anyone.
 """
     )
     
-    # with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-    #         server.starttls()
-    #         server.login(SMTP_EMAIL, SMTP_PASSWORD)
-    #         server.send_message(msg)
-    
-    try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
             server.starttls()
             server.login(SMTP_EMAIL, SMTP_PASSWORD)
             server.send_message(msg)
-            print(f"Email successfully sent to {to_email}")
-    except Exception as e:
-        print(f"Failed to send email: {e}")
+    
+    # try:
+    #     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+    #         server.starttls()
+    #         server.login(SMTP_EMAIL, SMTP_PASSWORD)
+    #         server.send_message(msg)
+    #         print(f"Email successfully sent to {to_email}")
+    # except Exception as e:
+    #     print(f"Failed to send email: {e}")
         

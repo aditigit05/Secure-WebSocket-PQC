@@ -25,4 +25,4 @@ def get_current_user(
             detail="Session token expired",
         )
         
-    return session["email"]
+    return session["user_id"]
