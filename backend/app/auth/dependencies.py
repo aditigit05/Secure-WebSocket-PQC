@@ -11,6 +11,9 @@ security = HTTPBearer(auto_error= False)
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
 ):
+    # print("AUTH HEADER TOKEN RECEIVED:", credentials.credentials)
+    # print("SESSION_STORE AT AUTH CHECK:", session_store)
+
     if credentials is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -33,3 +36,4 @@ def get_current_user(
         )
 
     return session["user_id"]
+

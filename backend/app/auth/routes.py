@@ -15,6 +15,7 @@ from app.auth.otp import (
 )
 from app.auth.store import otp_store, session_store
 from app.auth.dependencies import get_current_user
+from app.auth.users import get_or_create_user
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -66,10 +67,16 @@ def verify_otp_router(data: OTPVerify):
     session_token = generate_session_token()
     expiry = get_session_expiry()
     
+    user = get_or_create_user(data.email)
+    
     session_store[session_token] = {
-        "email": data.email,
+        "user_id": user["user_id"],
         "expiry": expiry,
     }
+    
+    print("SESSION_STORE AFTER LOGIN:", session_store)
+    print("SESSION TOKEN ISSUED:", session_token)
+
     
     del otp_store[data.email]
     
@@ -82,6 +89,6 @@ def verify_otp_router(data: OTPVerify):
 @router.get("/me")
 def get_me(current_user: str = Depends(get_current_user)):
     return{
-        "email": current_user,
-        "message": ""
+        "user_id": current_user,
+        "message": "You are authenticated"
     }
