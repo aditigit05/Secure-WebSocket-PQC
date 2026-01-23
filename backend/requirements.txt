@@ -6,3 +6,6 @@ passlib
 passlib[bcrypt]
 pydantic
 pydantic[email]
+uvicorn[standard]
+pqcrypto
+cryptography
