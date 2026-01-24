@@ -4,20 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chat | Secure PQC Chat</title>
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="chat.css" />
-
   <style>
+ 
     body{
       min-height: 100vh;
-      background:
-        radial-gradient(1200px circle at 10% 10%, rgba(13,110,253,.25), transparent 60%),
-        radial-gradient(900px circle at 90% 20%, rgba(25,135,84,.25), transparent 55%),
-        linear-gradient(135deg, #0b1220, #0f1b3a 45%, #0b1220);
-      color: #e9eefc;
-    }
+      background: radial-gradient(1200px circle at 10% 10%, rgba(13,110,253,.25), transparent 60%),
+                  radial-gradient(900px circle at 90% 20%, rgba(25,135,84,.25), transparent 55%),
+                  linear-gradient(135deg, #0b1220, #0f1b3a 45%, #0b1220);
 
+    }
+    
     .glass {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.12);
@@ -26,111 +24,142 @@
       border-radius: 18px;
       box-shadow: 0 20px 60px rgba(0,0,0,.35);
     }
+      .msg-area {
+    height: calc(100vh - 12rem);
+    overflow: auto;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+  }
 
-    .msg-area {
-      height: calc(100vh - 12rem);
-      overflow: auto;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-    }
+  .msg-bubble { max-width: 75%; opacity: .85; }
+  .msg-meta { font-size: 0.75rem; opacity: .75; }
 
-    .msg-bubble { max-width: 75%; opacity: .9; }
-    .msg-meta { font-size: 0.75rem; opacity: .75; }
+  .sidebar { height: calc(80vh - 2rem); overflow: auto; }
   </style>
 </head>
+<body >
+  
+  <div class="container-fluid p-3 glass">
+    <div class="row g-3 chat-shell" >
+      <div class="col-12 col-lg-3">
+        <div class="card bg-transparent-card border-0 h-100 glass">
+          <div class="card-body p-3 " >
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div>
+                <div class="fw-bold text-white">🔐 Secure PQC Chat</div>
+                <div class="text-white" style="font-size:.85rem;">PQC key exchange</div>
+              </div>
+              <span class="badge text-bg-success">Online</span>
+            </div>
 
-<body>
+            <div class="list-group sidebar">
+              <a href="#" class="list-group-item list-group-item-action active">
+                <div class="d-flex justify-content-between">
+                  <div class="fw-semibold">Ranchordas</div>
+                  <small>2m</small>
+                </div>
+                <div class="text-truncate" style="max-width: 100%;">Encrypted: Ready for demo?</div>
+              </a>
+            </div>
 
-<div class="container-fluid p-3 glass">
-  <div class="row g-3">
-
-    <!-- LEFT SIDEBAR -->
-    <div class="col-12 col-lg-3">
-      <div class="glass p-3 h-100">
-        <div class="fw-bold">🔐 Secure PQC Chat</div>
-        <div class="small">Client-side encryption</div>
-        <hr>
-        <div class="small text-success">WebSocket Connected</div>
-      </div>
-    </div>
-
-    <!-- CHAT AREA -->
-    <div class="col-12 col-lg-9">
-      <div class="glass p-3 h-100 d-flex flex-column">
-
-        <div class="mb-2">
-          <div class="fw-bold fs-5">Chat Window</div>
-          <div class="small">Server routes ciphertext only</div>
+          </div>
         </div>
-
-        <div id="msgArea" class="msg-area p-3 flex-grow-1"></div>
-
-        <form id="chatForm" class="d-flex gap-2 mt-3">
-          <input id="msgInput" class="form-control" placeholder="Type message…" autocomplete="off">
-          <button class="btn btn-success" type="submit">Send</button>
-        </form>
-
       </div>
+
+      <div class="col-12 col-lg-9" id="glass-card">
+        <div class="card bg-transparent-card border-0 h-100 glass">
+          <div class="card-header glass-header border-0 pt-3 pb-2" >
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+              <div>
+                <div class="fw-bold fs-5 text-white"> Ranchordas</div>
+                <div class="text-white" style="font-size:.85rem;">
+                  🔐 Client-side encryption • Server: route-only
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body msg-area p-3" id="msgArea">
+            <div class="d-flex mb-3">
+              <div class="msg-bubble bg-white border rounded-4 p-3">
+                <div class="fw-semibold">Ranchordas</div>
+                <div>Hey! Can you send the final demo flow?</div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end mb-3">
+              <div class="msg-bubble bg-primary text-white rounded-4 p-3">
+                <div class="fw-semibold">You</div>
+                <div>Sure. Registration → OTP → Chat. All messages encrypted on client.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer bg-white border-0 p-3" opacity=".75">
+            <form id="chatForm" class="d-flex gap-2">
+              <input id="msgInput" class="form-control" placeholder="Type a message..." autocomplete="off" />
+              <button id="sendButton" class="btn btn-success" type="submit">Send</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-
   </div>
-</div>
 
-<!-- ================= SCRIPTS ================= -->
+  <script>
+    const chatForm = document.getElementById("chatForm");
+    const msgInput = document.getElementById("msgInput");
+    const msgArea = document.getElementById("msgArea");
 
-<script src="js/crypto.js"></script>
-<script src="js/ws_client.js"></script>
+    function addOutgoing(text) {
+      const wrap = document.createElement("div");
+      wrap.className = "d-flex justify-content-end mb-3";
+      wrap.innerHTML = `
+        <div class="msg-bubble bg-primary text-white rounded-4 p-3">
+          <div class="fw-semibold">You</div>
+          <div id="msg-outgoing"></div>
+          <div class="msg-meta mt-1 text-white-50">Encrypted • just now</div>
+        </div>
+      `;
+      wrap.querySelector("div div:nth-child(2)").textContent = text;
+      msgArea.appendChild(wrap);
+      msgArea.scrollTop = msgArea.scrollHeight;
+    }
 
-<script>
-  const chatForm = document.getElementById("chatForm");
-  const msgInput = document.getElementById("msgInput");
-  const msgArea  = document.getElementById("msgArea");
-
-  function addOutgoing(text) {
-    const wrap = document.createElement("div");
-    wrap.className = "d-flex justify-content-end mb-3";
-    wrap.innerHTML = `
-      <div class="msg-bubble bg-primary text-white rounded-4 p-3">
-        <div class="fw-semibold">You</div>
-        <div>${text}</div>
-        <div class="msg-meta text-white-50 mt-1">Encrypted • sent</div>
-      </div>
-    `;
-    msgArea.appendChild(wrap);
-    msgArea.scrollTop = msgArea.scrollHeight;
-  }
-
-  function addIncoming(sender, text) {
-    const wrap = document.createElement("div");
-    wrap.className = "d-flex mb-3";
-    wrap.innerHTML = `
-      <div class="msg-bubble bg-white text-dark rounded-4 p-3">
-        <div class="fw-semibold">${sender}</div>
-        <div>${text}</div>
-        <div class="msg-meta mt-1">Encrypted • received</div>
-      </div>
-    `;
-    msgArea.appendChild(wrap);
-    msgArea.scrollTop = msgArea.scrollHeight;
-  }
-
-  /* ========= CHANGE THIS TOKEN ========= */
-  const TOKEN = "PASTE_SESSION_TOKEN_HERE";
-
-  connectWS(TOKEN);
-
-  chatForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const text = msgInput.value.trim();
-    if (!text) return;
-
-    addOutgoing(text);
-    await sendEncryptedMessage(text);
-    msgInput.value = "";
+    function addIncoming(sender, text) {
+  const time = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
   });
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  const wrap = document.createElement("div");
+  wrap.className = "d-flex mb-3 msg-incoming";
+
+  wrap.innerHTML = `
+    <div class="msg-bubble bg-white border p-3">
+      <div class="fw-semibold"></div>
+      <div class="msg-text"></div>
+      <div class="msg-meta mt-1">Encrypted • ${time}</div>
+    </div>
+  `;
+
+  wrap.querySelector(".fw-semibold").textContent = sender;
+  wrap.querySelector(".msg-text").textContent = text;
+
+  msgArea.appendChild(wrap);
+  msgArea.scrollTop = msgArea.scrollHeight;
+}
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = msgInput.value.trim();
+      if (!text) return;
+      addOutgoing(text);
+      msgInput.value = "";
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

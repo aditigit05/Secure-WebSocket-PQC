@@ -1,0 +1,33 @@
+#sendButton:hover {
+    border: 105%;
+}
+
+#msg-outgoing {
+  animation: sendPop 0.5s ease-out;
+}
+
+#msg-incoming {
+  animation: receivePop 0.5s ease-out;
+}
+
+@keyframes sendPop {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes receivePop {
+  from {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}

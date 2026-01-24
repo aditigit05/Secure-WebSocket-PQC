@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Secure PQC Chat | Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body{
+      min-height: 100vh;
+      background: radial-gradient(1200px circle at 10% 10%, rgba(13,110,253,.25), transparent 60%),
+                  radial-gradient(900px circle at 90% 20%, rgba(25,135,84,.25), transparent 55%),
+                  linear-gradient(135deg, #0b1220, #0f1b3a 45%, #0b1220);
+      color: #e9eefc;
+    }
+    .glass {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .soft-card {
+      border-radius: 18px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.20);
+    }
+    .muted-white { color: rgba(233,238,252,.75); }
+    .badge-soft {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #e9eefc;
+    }
+    .form-label { color: rgba(233,238,252,.85); }
+    .form-control {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e9eefc;
+    }
+    .form-control::placeholder { color: rgba(233,238,252,.55); }
+    .form-control:focus{
+      border-color: rgba(13,110,253,.6);
+      box-shadow: 0 0 0 .2rem rgba(13,110,253,.25);
+      background: rgba(255,255,255,0.12);
+      color:#fff;
+    }
+    .input-hint { font-size: .85rem; color: rgba(233,238,252,.65); }
+    .nav-link { color: rgba(233,238,252,.75) !important; }
+    .nav-link:hover { color: #fff !important; }
+    .btn-glow {
+      box-shadow: 0 10px 25px rgba(13,110,253,.25);
+    }
+    .feature-icon{
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .small-note { font-size: .9rem; }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-white" href="#">
+        🔐 Secure PQC Chat
+      </a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <main class="container pb-5">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-12 col-lg-6">
+        <div class="glass p-4 p-md-5 h-100" id="about">
+          
+
+          <h1 class="fw-bold display-6 mb-2">Post-Quantum Secure Chat</h1>
+          <p class="muted-white mb-4">
+            A real-time chat app designed for the future: messages are encrypted on the client,
+            the server only routes ciphertext, and no chat history is stored.
+          </p>
+
+
+          <div class="glass p-3">
+            <div class="fw-semibold mb-1">Terms and Conditions</div>
+            <ul class="mb-0 muted-white">
+              <li>All messages are end-to-end encrypted to ensure only the sender and receiver can read them.</li>
+              <li>Session keys are quantum-safe, generated using Kyber (post-quantum cryptography).</li>
+              <li>Messages are not permanently stored on any server. Temporary data exists only for message delivery.</li>
+              <li>User data (email and session token) is used exclusively for authentication purposes.</li>
+              <li>Users must not share session tokens or attempt to bypass any security mechanisms.</li>
+              <li>Users are expected to use the app ethically and legally.</li>
+              <li>Unauthorized access or attempts to break encryption are strictly prohibited.</li>
+            </ul>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <a href="registeration.html" class="btn btn-primary btn-glow px-4">Get Started</a>
+            <a href="otp.html" class="btn btn-outline-light px-4">Verify OTP</a>
+          </div>
+
+          <p class="mt-4 mb-0 input-hint">
+            Tip: For hackathon demo, highlight “Server has no plaintext access” + “No history stored”.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6" id="register">
+        <div class="card soft-card border-0 bg-transparent">
+          <div class="glass p-4 p-md-5">
+          <h3 class="fw-bold text-white display-7 mb-2">About</h3>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <span class="badge badge-soft">PQC (Kyber)</span>
+            <span class="badge badge-soft">AES Session</span>
+            <span class="badge badge-soft">E2EE</span>
+            <span class="badge badge-soft">WebSocket</span>
+            <span class="badge badge-soft">No History</span>
+          </div>
+            
+
+            <div class="row g-3 mb-4" id="security">
+            <div class="col-12 col-md-6">
+              <div class="glass p-3 h-100">
+                <div class="d-flex gap-3 align-items-start">
+                  <div class="feature-icon">🛡️</div>
+                  <div>
+                    <div class="fw-semibold text-white">End-to-End Encryption</div>
+                    <div class="muted-white small-note">All messages are encrypted on the sender’s device and decrypted only by the recipient. Ensures complete privacy, as no server stores unencrypted messages.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="glass p-3 h-100">
+                <div class="d-flex gap-3 align-items-start">
+                  <div class="feature-icon">🧪</div>
+                  <div>
+                    <div class="fw-semibold text-white">Post-Quantum Key Exchange</div>
+                    <div class="muted-white small-note">Session keys are generated using Kyber, a post-quantum cryptography (PQC) algorithm. Even future quantum computers cannot break these keys.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="glass p-3 h-100">
+                <div class="d-flex gap-3 align-items-start">
+                  <div class="feature-icon">⚡</div>
+                  <div>
+                    <div class="fw-semibold text-white">Real-time Messaging</div>
+                    <div class="muted-white small-note">Messages are sent and received instantly using WebSocket connections.The server validates your session token before accepting your connection.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="glass p-3 h-100">
+                <div class="d-flex gap-3 align-items-start">
+                  <div class="feature-icon">🧼</div>
+                  <div>
+                    <div class="fw-semibold text-white">No Message History</div>
+                    <div class="muted-white small-note">Session-only display; refresh clears chat. Messages are end-to-end encrypted and only exist in RAM during the session.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="glass p-3 h-100">
+                <div class="d-flex gap-3 align-items-start">
+                  <div class="feature-icon">👾</div>
+                  <div>
+                    <div class="fw-semibold text-white">AES Encryption for Messages</div>
+                    <div class="muted-white small-note">After the quantum-safe session key is established via Kyber, messages are encrypted using AES, a symmetric encryption algorithm.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="glass p-3 h-100">
+                <div class="d-flex gap-3 align-items-start">
+                  <div class="feature-icon">🤖</div>
+                  <div>
+                    <div class="fw-semibold text-white">Privacy-Focused Design</div>
+                    <div class="muted-white small-note">Emails and session tokens are used only for authentication. Messages are temporary and deleted after delivery.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="text-center mt-5 muted-white">
+      <small>© Secure PQC Chat • E2EE + PQC Demo Project</small>
+    </footer>
+  </main>
+
+  <script>
+    const form = document.getElementById("regForm");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        return;
+      }
+
+ 
+      window.location.href = "otp.html";
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
