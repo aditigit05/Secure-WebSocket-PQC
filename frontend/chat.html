@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat | Secure PQC Chat</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="chat.css" />
+
+  <style>
+    body{
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px circle at 10% 10%, rgba(13,110,253,.25), transparent 60%),
+        radial-gradient(900px circle at 90% 20%, rgba(25,135,84,.25), transparent 55%),
+        linear-gradient(135deg, #0b1220, #0f1b3a 45%, #0b1220);
+      color: #e9eefc;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    .msg-area {
+      height: calc(100vh - 12rem);
+      overflow: auto;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+    }
+
+    .msg-bubble { max-width: 75%; opacity: .9; }
+    .msg-meta { font-size: 0.75rem; opacity: .75; }
+  </style>
+</head>
+
+<body>
+
+<div class="container-fluid p-3 glass">
+  <div class="row g-3">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="col-12 col-lg-3">
+      <div class="glass p-3 h-100">
+        <div class="fw-bold">🔐 Secure PQC Chat</div>
+        <div class="small">Client-side encryption</div>
+        <hr>
+        <div class="small text-success">WebSocket Connected</div>
+      </div>
+    </div>
+
+    <!-- CHAT AREA -->
+    <div class="col-12 col-lg-9">
+      <div class="glass p-3 h-100 d-flex flex-column">
+
+        <div class="mb-2">
+          <div class="fw-bold fs-5">Chat Window</div>
+          <div class="small">Server routes ciphertext only</div>
+        </div>
+
+        <div id="msgArea" class="msg-area p-3 flex-grow-1"></div>
+
+        <form id="chatForm" class="d-flex gap-2 mt-3">
+          <input id="msgInput" class="form-control" placeholder="Type message…" autocomplete="off">
+          <button class="btn btn-success" type="submit">Send</button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+
+<script src="js/crypto.js"></script>
+<script src="js/ws_client.js"></script>
+
+<script>
+  const chatForm = document.getElementById("chatForm");
+  const msgInput = document.getElementById("msgInput");
+  const msgArea  = document.getElementById("msgArea");
+
+  function addOutgoing(text) {
+    const wrap = document.createElement("div");
+    wrap.className = "d-flex justify-content-end mb-3";
+    wrap.innerHTML = `
+      <div class="msg-bubble bg-primary text-white rounded-4 p-3">
+        <div class="fw-semibold">You</div>
+        <div>${text}</div>
+        <div class="msg-meta text-white-50 mt-1">Encrypted • sent</div>
+      </div>
+    `;
+    msgArea.appendChild(wrap);
+    msgArea.scrollTop = msgArea.scrollHeight;
+  }
+
+  function addIncoming(sender, text) {
+    const wrap = document.createElement("div");
+    wrap.className = "d-flex mb-3";
+    wrap.innerHTML = `
+      <div class="msg-bubble bg-white text-dark rounded-4 p-3">
+        <div class="fw-semibold">${sender}</div>
+        <div>${text}</div>
+        <div class="msg-meta mt-1">Encrypted • received</div>
+      </div>
+    `;
+    msgArea.appendChild(wrap);
+    msgArea.scrollTop = msgArea.scrollHeight;
+  }
+
+  /* ========= CHANGE THIS TOKEN ========= */
+  const TOKEN = "PASTE_SESSION_TOKEN_HERE";
+
+  connectWS(TOKEN);
+
+  chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const text = msgInput.value.trim();
+    if (!text) return;
+
+    addOutgoing(text);
+    await sendEncryptedMessage(text);
+    msgInput.value = "";
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

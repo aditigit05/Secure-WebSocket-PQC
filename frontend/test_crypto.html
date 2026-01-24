@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Crypto Test</title>
+</head>
+<body>
+  <h2>Crypto Test (Step 5)</h2>
+  <button id="run">Run Test</button>
+
+  <pre id="out"></pre>
+
+  <script src="js/crypto.js"></script>
+  <script>
+    const out = document.getElementById("out");
+
+    document.getElementById("run").onclick = async () => {
+      try {
+        const pub = await cryptoClient.generateKeyPair();
+        await cryptoClient.deriveAESKey(pub); // self-test
+
+        const cipher = await cryptoClient.encryptMessage("hello pqc");
+        const plain = await cryptoClient.decryptMessage(cipher);
+
+        out.textContent =
+          "Public Key:\n" + pub + "\n\n" +
+          "Ciphertext:\n" + cipher + "\n\n" +
+          "Decrypted:\n" + plain;
+      } catch (e) {
+        out.textContent = "ERROR:\n" + e;
+        console.error(e);
+      }
+    };
+  </script>
+</body>
+</html>
