@@ -9,3 +9,5 @@ pydantic[email]
 uvicorn[standard]
 pqcrypto
 cryptography
+websocket
+websocket-client

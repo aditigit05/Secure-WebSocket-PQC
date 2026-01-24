@@ -51,8 +51,11 @@ async def chat_ws(ws: WebSocket):
     ).derive(shared_secret)
 
     aesgcm = AESGCM(aes_key)
-
     print("[STEP 4] AES key derived")
+    
+    await ws.send_text("SECURE_CHANNEL_READY")
+    print(f"[SECURE] channel ready for user {user_id}")
+
 
 
     print(f"[STEP 3] Shared secret established for user {user_id}")

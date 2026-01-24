@@ -74,8 +74,8 @@ def verify_otp_router(data: OTPVerify):
         "expiry": expiry,
     }
     
-    print("SESSION_STORE AFTER LOGIN:", session_store)
-    print("SESSION TOKEN ISSUED:", session_token)
+    # print("SESSION_STORE AFTER LOGIN:", session_store)
+    # print("SESSION TOKEN ISSUED:", session_token)
 
     
     del otp_store[data.email]
