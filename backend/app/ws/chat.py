@@ -61,10 +61,32 @@ async def chat_ws(ws: WebSocket):
     print(f"[STEP 3] Shared secret established for user {user_id}")
     print(f"[STEP 3] Secret length: {len(shared_secret)} bytes")
 
-    # Keep connection alive (no encryption yet)
+    print("[SECURE] AES-GCM channel active")
+
     try:
         while True:
-            msg = await ws.receive_text()
-            await ws.send_text(f"echo: {msg}")
+            encrypted_b64 = await ws.receive_text()
+            encrypted = base64.b64decode(encrypted_b64)
+
+            nonce = encrypted[:12]
+            ciphertext = encrypted[12:]
+
+            plaintext = aesgcm.decrypt(nonce, ciphertext, None)
+            message = plaintext.decode()
+
+            print(f"[DECRYPTED from {user_id}]: {message}")
+
+            # Encrypt echo back
+            resp_nonce = os.urandom(12)
+            resp_ct = aesgcm.encrypt(
+                resp_nonce,
+                f"echo: {message}".encode(),
+                None
+            )
+
+            await ws.send_text(
+                base64.b64encode(resp_nonce + resp_ct).decode()
+            )
+
     except WebSocketDisconnect:
-        print(f"User {user_id} disconnected")
+        print(f"[DISCONNECTED] {user_id}")
