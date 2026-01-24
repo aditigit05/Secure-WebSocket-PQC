@@ -2,7 +2,13 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from app.auth.store import session_store
 
 from cryptography.hazmat.primitives.asymmetric import x25519
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import base64
+import os
+
+
 
 router = APIRouter()
 
@@ -35,6 +41,19 @@ async def chat_ws(ws: WebSocket):
 
     # 🔐 Shared secret
     shared_secret = server_private.exchange(client_pub)
+    
+    # 🔐 STEP 4: Derive AES key from shared secret
+    aes_key = HKDF(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=None,
+        info=b"secure-chat-step4",
+    ).derive(shared_secret)
+
+    aesgcm = AESGCM(aes_key)
+
+    print("[STEP 4] AES key derived")
+
 
     print(f"[STEP 3] Shared secret established for user {user_id}")
     print(f"[STEP 3] Secret length: {len(shared_secret)} bytes")

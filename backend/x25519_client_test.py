@@ -2,7 +2,7 @@ from cryptography.hazmat.primitives.asymmetric import x25519
 from websocket import WebSocket
 import base64
 
-TOKEN = "3QZX4EUkcg6Lkur10-rk8QIMXa182Hqztj5YBOaDSJQ"
+TOKEN = "YK_jANA_1LIWURx24jMo7-IqNg0QHanv7KYS008p1Gs"
 
 ws = WebSocket()
 ws.connect(f"ws://127.0.0.1:8000/ws/chat?token={TOKEN}")
