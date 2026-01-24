@@ -24,3 +24,46 @@ def is_otp_expired(expiry_timestamp: int) -> bool:
 
 
 due to bycript
+
+
+
+
+
+
+
+
+e2ee in server
+
+
+
+
+print("[SECURE] AES-GCM channel active")
+
+    try:
+        while True:
+            encrypted_b64 = await ws.receive_text()
+            encrypted = base64.b64decode(encrypted_b64)
+
+            nonce = encrypted[:12]
+            ciphertext = encrypted[12:]
+
+            plaintext = aesgcm.decrypt(nonce, ciphertext, None)
+            message = plaintext.decode()
+
+            print(f"[DECRYPTED from {user_id}]: {message}")
+
+            # Encrypt echo back
+            resp_nonce = os.urandom(12)
+            resp_ct = aesgcm.encrypt(
+                resp_nonce,
+                f"echo: {message}".encode(),
+                None
+            )
+
+            await ws.send_text(
+                base64.b64encode(resp_nonce + resp_ct).decode()
+            )
+
+    except WebSocketDisconnect:
+        print(f"[DISCONNECTED] {user_id}")
+
